@@ -1,0 +1,17 @@
+[Unit]
+Description=Lsyncd - Live Syncing (Mirror) Daemon
+After=network.target
+ConditionPathExists=/etc/lsyncd/lsyncd.conf.lua
+
+[Service]
+Type=simple
+Nice=19
+ExecStart=/usr/bin/lsyncd -nodaemon -pidfile /run/lsyncd.pid /etc/lsyncd/lsyncd.conf.lua
+ExecReload=/bin/kill -HUP $MAINPID
+PIDFile=/run/lsyncd.pid
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
